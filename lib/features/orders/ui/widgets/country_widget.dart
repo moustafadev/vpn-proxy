@@ -39,7 +39,7 @@ class CountryWidget extends StatelessWidget {
         SizedBox(
           width: size.width * 0.07,
         ),
-        SvgPicture.asset(
+        Image.network(
           assetName,
           width: 18,
           height: 16,

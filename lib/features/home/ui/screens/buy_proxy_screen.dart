@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/home/ui/widgets/proxy_buy_top_card.dart';
@@ -23,10 +24,23 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
   );
   PageController bottomPageController = PageController();
   // var proxyController = Get.put(ProxyController());
+  String _balance = '';
 
   @override
   void initState() {
+    _getBalance();
     super.initState();
+  }
+
+  void _getBalance() async {
+    var result = await Repository(context: context).getBalance();
+
+    if (result != null) {
+      setState(() {
+        _balance = result.balance.toString();
+        print(result.balance);
+      });
+    }
   }
 
   @override
@@ -44,25 +58,25 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
                   top: 14, right: 28, left: 28, bottom: 14),
               child: Column(
                 children: [
-                   Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Цена за штуку",
-                          style: mainSemibooextStyle.copyWith(
-                            fontSize: 15,
-                            color: kMainGrey,
-                          ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Цена за штуку",
+                        style: mainSemibooextStyle.copyWith(
+                          fontSize: 15,
+                          color: kMainGrey,
                         ),
-                         Text(
-                          "\$ 6.20",
-                          style: mainBoldTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
+                      ),
+                      Text(
+                        "\$ 6.20",
+                        style: mainBoldTextStyle.copyWith(
+                          fontSize: 16,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   ElvatedFillButton(
                     tittle: "Купить прокси",
@@ -127,7 +141,7 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: Text(
-                            "\$ 93.5 ",
+                            "\$ $_balance",
                             style: mainBoldTextStyle.copyWith(
                                 color: kWhite, fontSize: 15),
                           ),

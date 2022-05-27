@@ -4,7 +4,6 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/account/screen/account_screen.dart';
-import 'package:proxy_line/features/proxy_check/screen/proxy_check.dart';
 import 'package:proxy_line/features/settings/ui/screens/question_screen.dart';
 import 'package:proxy_line/features/settings/ui/screens/write_us_screen.dart';
 import 'package:proxy_line/features/speed_test/screen/speed_test_screen.dart';
@@ -129,41 +128,35 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              pushNewScreen(context,
-                  screen: const ProxyCheck(), withNavBar: false);
-            },
-            child: Container(
-              width: size.width * 0.43,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.06),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(14),
-                  bottomRight: Radius.circular(14),
-                  topLeft: Radius.circular(14),
-                  topRight: Radius.circular(14),
-                ),
+          Container(
+            width: size.width * 0.43,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.06),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(14),
+                bottomRight: Radius.circular(14),
+                topLeft: Radius.circular(14),
+                topRight: Radius.circular(14),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    right: 20, left: 20, top: 20, bottom: 20),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Проверка \nпрокси",
-                        style: mainSemibooextStyle.copyWith(
-                          fontSize: 13,
-                          color: kYellow,
-                        ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  right: 20, left: 20, top: 20, bottom: 20),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Проверка \nпрокси",
+                      style: mainSemibooextStyle.copyWith(
+                        fontSize: 13,
+                        color: kYellow,
                       ),
-                      SvgPicture.asset(
-                        "assets/icons/icons/check_icon.svg",
-                      ),
-                    ],
-                  ),
+                    ),
+                    SvgPicture.asset(
+                      "assets/icons/icons/check_icon.svg",
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -21,6 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController dataController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isOnButton = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    dataController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -32,9 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          log("state.isHaveProxy ${state.isHaveProxy}");
-          log("state.isOnButton ${state.isOnButton}");
-
           return Scaffold(
             backgroundColor: kGreyPrimary,
             body: SizedBox(
@@ -435,8 +440,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
                     );
-      
-                   
                   },
                   child: Text(
                     "Купить прокси",

@@ -53,6 +53,9 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   checkbox_grouped: ^1.8.0
   step_progress_indicator: ^1.0.2
+  table_calendar: ^3.0.4
+  scrollable_clean_calendar: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:

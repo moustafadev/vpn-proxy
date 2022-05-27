@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
+import 'package:proxy_line/core/provider/app_data.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 
@@ -16,6 +18,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppData>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kGreyPrimary,
@@ -62,7 +65,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    Provider.of<AppData>(context, listen: false).logOut();
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
@@ -90,7 +96,7 @@ class _AccountScreenState extends State<AccountScreen> {
           Container(
             height: 65,
             width: size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: kBlackLight,
             ),
             child: Padding(
@@ -103,11 +109,11 @@ class _AccountScreenState extends State<AccountScreen> {
                     style: mainBoldTextStyle.copyWith(
                         color: kMainGrey, fontSize: 16),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "123456789",
+                    provider.user.email,
                     style: mainBoldTextStyle.copyWith(
                         color: kMainGrey, fontSize: 15),
                   ),
@@ -134,7 +140,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     style: mainBoldTextStyle.copyWith(
                         color: kMainGrey, fontSize: 16),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Row(
@@ -144,7 +150,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         style: mainBoldTextStyle.copyWith(
                             color: kMainGrey, fontSize: 15),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 18,
                       ),
                       SvgPicture.asset(

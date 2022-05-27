@@ -157,6 +157,8 @@ class ProxyCheck extends StatelessWidget {
                     ],
                   ),
                   child: ElvatedFillButton(
+                    color: kYellow,
+                    colorText: kBlack,
                     tittle: "Отправить",
                     onTap: () {
                       pushNewScreen(context, screen: ResultCheckScreen());

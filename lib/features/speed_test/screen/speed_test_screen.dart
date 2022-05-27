@@ -19,7 +19,6 @@ class _SpeedTestScreenState extends State<SpeedTestScreen> {
   bool selectItem = false;
   bool selectAllItem = false;
   int indexed = 0;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

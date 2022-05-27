@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:proxy_line/features/auth/ui/sign_in/screen/sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:proxy_line/core/check/check.dart';
+import 'package:proxy_line/core/provider/app_data.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var appData = await AppData.init();
+  print(appData.user.token);
+  print(appData.user.userId);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => appData,
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
   // configureInjection(Environment.prod);
 }
 
@@ -26,7 +41,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
       ),
-      home: const SingInPage(),
+      home: const Check(),
     );
   }
 }

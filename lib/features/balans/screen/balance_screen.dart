@@ -7,7 +7,8 @@ import 'package:proxy_line/features/balans/widgets/balance_widget.dart';
 import 'package:proxy_line/features/balans/widgets/operation_widget.dart';
 
 class BalanceScreen extends StatefulWidget {
-  const BalanceScreen({Key? key}) : super(key: key);
+  const BalanceScreen({Key? key, required this.balance}) : super(key: key);
+  final String balance;
 
   @override
   State<BalanceScreen> createState() => _BalanceScreenState();
@@ -99,7 +100,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           width: 10,
                         ),
                         Text(
-                          '93.5',
+                          widget.balance,
                           style: mainSemibooextStyle.copyWith(
                             fontSize: 40,
                             color: Colors.white,

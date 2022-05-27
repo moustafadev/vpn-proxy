@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
 import 'package:proxy_line/core/component/text_fields/custom_text_field.dart';
 import 'package:proxy_line/core/component/text_fields/custom_text_password.dart';
+import 'package:proxy_line/core/provider/app_data.dart';
+import 'package:proxy_line/core/provider/shared.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/auth/ui/recover/screen/recover_page.dart';
@@ -20,6 +24,24 @@ class SingInPage extends StatefulWidget {
 class _SingInPageState extends State<SingInPage> {
   TextEditingController dataController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  void _signIn() async {
+    var result = await Repository(context: context).authUser(
+      dataController.text,
+      passwordController.text,
+    );
+    if (result != null) {
+      print(result.userId);
+      Provider.of<AppData>(context, listen: false).setUser(
+        User(
+          userId: result.userId.toString(),
+          token: result.token,
+          email: dataController.text,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +58,14 @@ class _SingInPageState extends State<SingInPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.05),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/icons/logo/logo.svg',
-                          ),
-                        ),
-                      ),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/icons/logo/logo.svg',
+                    ),
+                  ),
+                ),
                 Column(
                   children: [
                     const SizedBox(
@@ -137,12 +159,7 @@ class _SingInPageState extends State<SingInPage> {
                     ElvatedFillButton(
                         tittle: "Войти",
                         onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const MainSwiper(page: 0),
-                            ),
-                          );
+                          _signIn();
                         }),
                     const SizedBox(
                       height: 16,
@@ -156,6 +173,4 @@ class _SingInPageState extends State<SingInPage> {
       ),
     );
   }
-
-
 }

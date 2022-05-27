@@ -10,12 +10,9 @@ Color kYellowDark = const Color(0xFFFAC637).withOpacity(0.1);
 
 const kReadMode = Color(0xFFE23A3A);
 
-const kInvalid = Color(0xFFC14645);
-
 const kGreenProgress = Color(0xFF2EE735);
 const kRedProgress = Color(0xFFE72E2E);
 const kBlackProgress = Color(0xFF0D0D0F);
-const kYellowProgress = Color(0xFFCE8415);
 
 const kCyanBlue = Color(0xFF34373D);
 

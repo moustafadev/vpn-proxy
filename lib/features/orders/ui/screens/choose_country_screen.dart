@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
 import 'package:proxy_line/core/constants/constant.dart';
+import 'package:proxy_line/core/repository/objects/countries.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/orders/ui/widgets/country_widget.dart';
@@ -18,6 +22,25 @@ bool selectItem = false;
 int indexed = 0;
 
 class _ChooseCountryScreenState extends State<ChooseCountryScreen> {
+  List<CountriesAnswer> _countries = [];
+  @override
+  void initState() {
+    Timer(Duration(seconds: 1), () {
+      _getCountries();
+    });
+    super.initState();
+  }
+
+  void _getCountries() async {
+    var result = await Repository(context: context).getCountries();
+
+    if (result != null) {
+      setState(() {
+        _countries = result;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -89,8 +112,8 @@ class _ChooseCountryScreenState extends State<ChooseCountryScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: CountryWidget(
               alphabet: alphabets[index].toUpperCase(),
-              assetName: "assets/icons/country/flag.svg",
-              text: 'United States of America',
+              assetName: _countries[index].flagUrl,
+              text: _countries[index].nameRu,
               isSelect: indexed == index ? selectItem : false,
               isAlphabet: true,
               onTap: () {
@@ -105,7 +128,7 @@ class _ChooseCountryScreenState extends State<ChooseCountryScreen> {
             height: 50,
             color: Colors.grey.shade700,
           ),
-          itemCount: 50,
+          itemCount: _countries.length,
         ),
       ),
     );

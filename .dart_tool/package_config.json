@@ -344,6 +344,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "io",
       "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/io-1.0.3",
       "packageUri": "lib/",
@@ -506,6 +512,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "scrollable_clean_calendar",
+      "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/scrollable_clean_calendar-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/shared_preferences-2.0.13",
       "packageUri": "lib/",
@@ -566,6 +578,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///F:/fluter_versions/2.5.3/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -610,6 +628,12 @@
     {
       "name": "string_scanner",
       "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///C:/Users/Mosta/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/table_calendar-3.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -734,7 +758,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-05-10T17:19:10.395369Z",
+  "generated": "2022-05-25T22:36:42.089460Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

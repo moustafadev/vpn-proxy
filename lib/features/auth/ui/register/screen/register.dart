@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
 import 'package:proxy_line/core/component/text_fields/custom_text_field.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
+import 'package:proxy_line/features/auth/ui/code/screen/code.dart';
 import 'package:proxy_line/features/auth/ui/policy_page.dart/screen/policy_page.dart';
 import 'package:proxy_line/features/auth/ui/sign_in/screen/sign_in.dart';
 
@@ -17,13 +19,31 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   TextEditingController dataController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  void _sendEmail() async {
+    var result = await Repository(context: context)
+        .verificationCode(dataController.text);
+
+    if (result != null) {
+      // if (result.success == true) {
+      print('qweqwe');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CodePage(
+            email: dataController.text,
+          ),
+        ),
+      );
+      // }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kGreyPrimary,
-            resizeToAvoidBottomInset: false,
-
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           const Image(
@@ -34,15 +54,15 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                  Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.05),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/icons/logo/logo.svg',
-                          ),
-                        ),
-                      ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/icons/logo/logo.svg',
+                    ),
+                  ),
+                ),
                 Column(
                   children: [
                     const SizedBox(
@@ -185,7 +205,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 24,
                     ),
                     ElvatedFillButton(
-                        tittle: "Зарегистрироваться", onTap: () {}),
+                        tittle: "Зарегистрироваться",
+                        onTap: () {
+                          _sendEmail();
+                        }),
                     const SizedBox(
                       height: 16,
                     ),

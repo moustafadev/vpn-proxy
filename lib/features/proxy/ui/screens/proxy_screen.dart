@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:proxy_line/core/repository/objects/proxies.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/balans/screen/balance_screen.dart';
@@ -18,9 +20,41 @@ class ProxyScreen extends StatefulWidget {
 
 class _ProxyScreenState extends State<ProxyScreen> {
   var proxyController = Get.put(ProxyController());
+  String _balance = '';
+  List<ProxiesAnswer> _proxies = [];
   @override
   void initState() {
+    // _getBalance();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _getBalance();
+    _getProxies();
+    super.didChangeDependencies();
+  }
+
+  void _getBalance() async {
+    var result = await Repository(context: context).getBalance();
+
+    if (result != null) {
+      setState(() {
+        _balance = result.balance.toString();
+        print(result.balance);
+      });
+    }
+  }
+
+  void _getProxies() async {
+    var result = await Repository(context: context).getProxies();
+
+    if (result != null) {
+      setState(() {
+        _proxies = result;
+        print('object');
+      });
+    }
   }
 
   @override
@@ -72,14 +106,17 @@ class _ProxyScreenState extends State<ProxyScreen> {
                 InkWell(
                   onTap: () {
                     pushNewScreen(context,
-                        screen: const BalanceScreen(), withNavBar: false);
+                        screen: BalanceScreen(
+                          balance: _balance,
+                        ),
+                        withNavBar: false);
                   },
                   child: Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 5),
                         child: Text(
-                          "\$ 93.5 ",
+                          "\$ $_balance",
                           style: mainBoldTextStyle.copyWith(
                               color: kWhite, fontSize: 15),
                         ),
