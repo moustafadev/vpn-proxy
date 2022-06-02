@@ -55,6 +55,8 @@ dependencies:
   step_progress_indicator: ^1.0.2
   table_calendar: ^3.0.4
   scrollable_clean_calendar: ^1.2.0
+  http: ^0.13.4
+
 
 
 dev_dependencies:

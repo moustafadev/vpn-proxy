@@ -19,7 +19,7 @@ class UserAnswer {
   String token;
 
   factory UserAnswer.fromJson(Map<String, dynamic> json) => UserAnswer(
-        userId: json["id"],
+        userId: json["user_id"],
         token: json["token"],
       );
 

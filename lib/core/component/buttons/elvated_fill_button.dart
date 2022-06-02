@@ -3,11 +3,18 @@ import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
 
 class ElvatedFillButton extends StatefulWidget {
-  const ElvatedFillButton({Key? key, required this.tittle, required this.onTap})
+  ElvatedFillButton(
+      {Key? key,
+      required this.tittle,
+      required this.onTap,
+      this.color,
+      this.colorText})
       : super(key: key);
 
   final String tittle;
   final Function() onTap;
+  Color? color = kYellow;
+  Color? colorText = kBlack;
 
   @override
   State<ElvatedFillButton> createState() => _ElvatedFillButtonState();
@@ -29,13 +36,14 @@ class _ElvatedFillButtonState extends State<ElvatedFillButton> {
           ),
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          primary: kYellow,
+          primary: widget.color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
         ),
         child: Text(widget.tittle,
-            style: mainSemibooextStyle.copyWith(fontSize: 13, color: kBlack)),
+            style: mainSemibooextStyle.copyWith(
+                fontSize: 13, color: widget.colorText)),
       ),
     );
   }

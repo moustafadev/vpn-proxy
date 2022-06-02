@@ -126,7 +126,7 @@ class ProxyCheck extends StatelessWidget {
                                   width: 10,
                                 ),
                                 Text(
-                                  check_proxy[index],
+                                  'check_proxy[index]',
                                   style: mainBoldTextStyle.copyWith(
                                       color: kWhite, fontSize: 13),
                                 ),

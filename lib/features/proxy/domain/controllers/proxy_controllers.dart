@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proxy_line/core/repository/objects/countries.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/features/proxy/domain/models/proxy.dart';
 
 class ProxyController extends GetxController {
@@ -8,6 +11,27 @@ class ProxyController extends GetxController {
   double selectSliderWidget = 30;
   String selectTypeProxy = 'HTTP(S)';
   int buyProxyCount = 1;
+  List<CountriesAnswer> _countries = <CountriesAnswer>[].obs;
+
+  List<CountriesAnswer> get countries => _countries.obs;
+
+  RxBool _loading = false.obs;
+  RxBool get loading => _loading;
+  RxInt _index = 1.obs;
+  RxInt get index => _index;
+
+  chooseCountry(int index) {
+    _index = index.obs;
+    update();
+  }
+
+  void getCountries(BuildContext context) async {
+    var result = await Repository(context: context).getCountries();
+    if (result != null) {
+      _countries = result;
+    }
+    _loading = true.obs;
+  }
 
   void updateSelectValue(double value) {
     selectSliderWidget = value;

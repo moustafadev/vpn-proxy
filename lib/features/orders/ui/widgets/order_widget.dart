@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:proxy_line/core/repository/objects/ips.dart';
+import 'package:proxy_line/core/repository/objects/order.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
+import 'package:proxy_line/features/proxy/domain/controllers/proxy_controllers.dart';
 import 'package:proxy_line/features/proxy/domain/models/proxy.dart';
+import 'package:proxy_line/features/proxy_info/screen/proxy_info.dart';
 
 class OrderContainer extends StatelessWidget {
-  const OrderContainer({Key? key, required this.proxyModel}) : super(key: key);
-  final ProxyModel proxyModel;
+  const OrderContainer(
+      {Key? key, required this.country, required this.ip, required this.params})
+      : super(key: key);
+
+  final String ip;
+  final String country;
+  final Params params;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Stack(
@@ -45,7 +58,7 @@ class OrderContainer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  proxyModel.name,
+                                  'IPv4 Shared',
                                   style: mainBoldTextStyle.copyWith(
                                     fontSize: 16,
                                   ),
@@ -58,7 +71,7 @@ class OrderContainer extends StatelessWidget {
                                           fontSize: 12, color: kMainGrey),
                                     ),
                                     Text(
-                                      "19.03.2022 19:04",
+                                      "${ip.replaceAll('.*.*', '.${params.ipType}.${params.ipVersion}')}  19:04",
                                       style: mainSemibooextStyle.copyWith(
                                           fontSize: 12, color: kMainGrey),
                                     ),
@@ -78,7 +91,8 @@ class OrderContainer extends StatelessWidget {
                                           fontSize: 12, color: kMainGrey),
                                     ),
                                     Text(
-                                      proxyModel.id,
+                                      ip.replaceAll('.*.*',
+                                          '.${params.ipType}.${params.ipVersion}'),
                                       style: mainSemibooextStyle.copyWith(
                                         fontSize: 12,
                                       ),
@@ -140,19 +154,23 @@ class OrderContainer extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      proxyModel.country,
+                                      '${params.countryId}',
                                       style: mainBoldTextStyle.copyWith(
                                         fontSize: 16,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: SvgPicture.asset(
-                                        "assets/icons/country/flag.svg",
-                                        width: 16,
-                                        height: 12,
+                                    GetX<ProxyController>(
+                                      init: ProxyController(),
+                                      builder: (con) => Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: Image.network(
+                                          con.countries[con.index.value]
+                                              .flagUrl,
+                                          width: 16,
+                                          height: 12,
+                                        ),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
                               ],
@@ -169,7 +187,7 @@ class OrderContainer extends StatelessWidget {
                                       fontSize: 12, color: kMainGrey),
                                 ),
                                 Text(
-                                  "${proxyModel.countOfDays}",
+                                  "1",
                                   style: mainBoldTextStyle.copyWith(
                                     fontSize: 16,
                                   ),
@@ -188,7 +206,7 @@ class OrderContainer extends StatelessWidget {
                                       fontSize: 12, color: kMainGrey),
                                 ),
                                 Text(
-                                  "\$ ${proxyModel.price}",
+                                  "\$ 2",
                                   style: mainBoldTextStyle.copyWith(
                                     fontSize: 16,
                                   ),
@@ -214,20 +232,26 @@ class OrderContainer extends StatelessWidget {
                       bottomRight: Radius.circular(14),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20, left: 20),
-                    child: Center(
-                      child: InkWell(
-                        onTap: () async {
-                          await Future.delayed(
-                            const Duration(milliseconds: 300),
-                          );
-                        },
-                        child: Text(
-                          "Получить",
-                          style: mainSemibooextStyle.copyWith(
-                            fontSize: 13,
-                            color: kYellow,
+                  child: InkWell(
+                    onTap: () {
+                      pushNewScreen(context,
+                          screen: ProxyInfoScreen(), withNavBar: false);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20, left: 20),
+                      child: Center(
+                        child: InkWell(
+                          onTap: () async {
+                            await Future.delayed(
+                              const Duration(milliseconds: 300),
+                            );
+                          },
+                          child: Text(
+                            "Получить",
+                            style: mainSemibooextStyle.copyWith(
+                              fontSize: 13,
+                              color: kYellow,
+                            ),
                           ),
                         ),
                       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -48,6 +50,7 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
     return GetBuilder<ProxyController>(
       init: ProxyController(),
       builder: (proxyController) {
+        proxyController.getCountries(context);
         return Scaffold(
           bottomNavigationBar: Container(
             width: MediaQuery.of(context).size.width,
@@ -79,6 +82,8 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
                   ),
                   const SizedBox(height: 20),
                   ElvatedFillButton(
+                    color: kYellow,
+                    colorText: kBlack,
                     tittle: "Купить прокси",
                     onTap: () {
                       // Navigator.pushReplacement(
@@ -110,7 +115,7 @@ class _BuyProxyScreenState extends State<BuyProxyScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        Get.back(result: true);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

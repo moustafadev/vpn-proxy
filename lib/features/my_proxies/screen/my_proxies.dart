@@ -7,6 +7,7 @@ import 'package:proxy_line/core/style/text_styles.dart';
 import 'package:proxy_line/features/my_proxies/screen/buttom_sheet/my_proxies_button_sheet.dart';
 import 'package:proxy_line/features/my_proxies/widget/my_proxies_widget.dart';
 import 'package:proxy_line/features/proxy/ui/widgets/proxy_container.dart';
+import 'package:proxy_line/features/proxy_info/screen/proxy_info.dart';
 
 import 'buttom_sheet/filter_button_sheet.dart';
 
@@ -94,7 +95,7 @@ class _MyProxyScreenState extends State<MyProxyScreen> {
                       InkWell(
                         onTap: () async {
                           await Dialogs.showBottomSheet(context,
-                              child: const FilterButtonSheet());
+                              child: ProxyInfoScreen());
                         },
                         child: SvgPicture.asset(
                           'assets/icons/icons/filter.svg',
@@ -103,7 +104,7 @@ class _MyProxyScreenState extends State<MyProxyScreen> {
                       InkWell(
                         onTap: () async {
                           await Dialogs.showBottomSheet(context,
-                              child: const ProxiesButtonSheet());
+                              child: const FilterButtonSheet());
                         },
                         child: const Padding(
                           padding: EdgeInsets.only(left: 10),

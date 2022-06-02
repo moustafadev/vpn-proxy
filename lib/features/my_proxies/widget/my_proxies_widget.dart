@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
+import 'package:proxy_line/features/my_proxies/screen/buttom_sheet/my_proxies_button_sheet.dart';
 
 class MyProxiesWidget extends StatelessWidget {
   MyProxiesWidget({
@@ -112,11 +114,18 @@ class MyProxiesWidget extends StatelessWidget {
             deleteScreen
                 ? Row(
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: Icon(
-                          Icons.more_vert,
-                          color: kWhite,
+                        child: InkWell(
+                          onTap: () {
+                            pushNewScreen(context,
+                                screen: const ProxiesButtonSheet(),
+                                withNavBar: false);
+                          },
+                          child: Icon(
+                            Icons.more_vert,
+                            color: kWhite,
+                          ),
                         ),
                       ),
                       SizedBox(

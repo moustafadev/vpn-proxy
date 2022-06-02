@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:proxy_line/core/component/buttons/elvated_border_button.dart';
 import 'package:proxy_line/core/component/buttons/elvated_fill_button.dart';
-import 'package:proxy_line/core/component/dialogs/bottom_sheet.dart';
+import 'package:proxy_line/core/repository/objects/tag.dart';
+import 'package:proxy_line/core/repository/repository.dart';
 import 'package:proxy_line/core/style/colors.dart';
 import 'package:proxy_line/core/style/text_styles.dart';
-import 'package:proxy_line/features/my_proxies/screen/buttom_sheet/filter_button_sheet.dart';
-import 'package:proxy_line/features/my_proxies/screen/buttom_sheet/my_proxies_button_sheet.dart';
-import 'package:proxy_line/features/my_proxies/widget/my_proxies_widget.dart';
-import 'package:proxy_line/features/proxy/ui/widgets/proxy_container.dart';
 import 'package:proxy_line/features/proxy_info/widget/container_info.dart';
 
 class ProxyInfoScreen extends StatefulWidget {
@@ -40,6 +36,16 @@ class _ProxyInfoScreenState extends State<ProxyInfoScreen> {
     'MsUpsas62',
     'HTTP'
   ];
+  List<Tags>? _tag = [];
+  void _getTags() async {
+    var result = await Repository(context: context).getTags();
+    if (result != null) {
+      setState(() {
+        _tag = result;
+        print(result);
+      });
+    }
+  }
 
   List typeData = [
     'Тестовые',
@@ -47,6 +53,11 @@ class _ProxyInfoScreenState extends State<ProxyInfoScreen> {
     'Новые прокси',
     'Разное',
   ];
+  @override
+  void initState() {
+    _getTags();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +286,7 @@ class _ProxyInfoScreenState extends State<ProxyInfoScreen> {
                   width: double.infinity,
                   child: GridView.builder(
                     shrinkWrap: true,
-                    itemCount: typeData.length,
+                    itemCount: _tag!.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
@@ -289,16 +300,13 @@ class _ProxyInfoScreenState extends State<ProxyInfoScreen> {
                                 ? kYellow.withOpacity(0.1)
                                 : kGreenCon.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Text(
-                              typeData[index],
-                              style: mainBoldTextStyle.copyWith(
-                                  color: index == 1 ? kYellow : kGreenCon,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700),
-                            ),
+                        child: Center(
+                          child: Text(
+                            _tag![index].name!,
+                            style: mainBoldTextStyle.copyWith(
+                                color: index == 1 ? kYellow : kGreenCon,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700),
                           ),
                         ),
                       );

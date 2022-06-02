@@ -16,9 +16,12 @@ class SuccessAnswer {
 
   bool success;
 
-  factory SuccessAnswer.fromJson(Map<String, dynamic> json) => SuccessAnswer(
-        success: json["message"],
-      );
+  factory SuccessAnswer.fromJson(Map<String, dynamic> json) {
+    print(json);
+    return SuccessAnswer(
+      success: json["success"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "success": success,

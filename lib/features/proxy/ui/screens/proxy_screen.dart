@@ -24,20 +24,20 @@ class _ProxyScreenState extends State<ProxyScreen> {
   List<ProxiesAnswer> _proxies = [];
   @override
   void initState() {
-    // _getBalance();
+    _getProxies();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
     _getBalance();
-    _getProxies();
+    //_getProxies();
     super.didChangeDependencies();
   }
 
   void _getBalance() async {
     var result = await Repository(context: context).getBalance();
-
+    print(result);
     if (result != null) {
       setState(() {
         _balance = result.balance.toString();
@@ -48,6 +48,8 @@ class _ProxyScreenState extends State<ProxyScreen> {
 
   void _getProxies() async {
     var result = await Repository(context: context).getProxies();
+
+    print('<<<<<<<<<<<proxies$result>>>>>>>>>');
 
     if (result != null) {
       setState(() {
